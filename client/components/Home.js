@@ -14,10 +14,6 @@ export const Home = (props) => {
   );
 };
 
-export const Hello = () => {
-  return <div>Hello World</div>;
-};
-
 /**
  * CONTAINER
  */
