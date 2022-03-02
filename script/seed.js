@@ -1,29 +1,70 @@
-'use strict'
+"use strict";
 
-const {db, models: {User} } = require('../server/db')
+const {
+  db,
+  models: { User, Product },
+} = require("../server/db");
 
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
 async function seed() {
-  await db.sync({ force: true }) // clears db and matches models to tables
-  console.log('db synced!')
+  await db.sync({ force: true }); // clears db and matches models to tables
+  console.log("db synced!");
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
+    User.create({ username: "cody", password: "123" }),
+    User.create({ username: "murphy", password: "123" }),
+  ]);
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+  console.log(`seeded ${users.length} users`);
+  console.log(`seeded successfully`);
+
+  // Creating Products
+  const products = await Promise.all([
+    Product.create({
+      name: "Blue Buffalo Life Protection Dog Food",
+      imageUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkbDbfzh3o6ritcPcTsMhCEiXU7c_MZMbAwg&usqp=CAU",
+      price: 45,
+      description: "Holistic formula for health and well-being of dog and a healthy shinny coat. Contains all natural ingredients",
+      productCatergory: "Food",
+      productInventory: 100,
+    }),
+    Product.create({
+      name: "Lifetime Leash",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmTDgIGYbRRhrktvZyUPFjnDzw4TIYswnbXw&usqp=CAU",
+      price: 24.99,
+      description: "Rope style leash for all dog types built to last a life time",
+      productCatergory: "Accessory",
+      productInventory: 100,
+    }),
+    Product.create({
+      name: "Arm & Hammer Dental Chew Toy: Gorilla",
+      imageUrl: "https://images-na.ssl-images-amazon.com/images/I/71uC4K3GgrL._AC_SL1500_.jpg",
+      price: 12.00,
+      description: "Extremely durable. Designed to clean your canines teeth, freshen their breath, promote gum health, and keep them entertained throughout the day.",
+      productCatergory: "Toy",
+      productInventory: 100,
+    }),
+    Product.create({
+      name: "Chuckit! Flying Squirrel",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSspfzrcZyh1AEM94DjOk2dhoBkVlN2Y6tfTA&usqp=CAU",
+      price: 7.99,
+      description: "If your dog loves chasing squirrels and playing fetch, this toy combines the best of both worlds. Perfect for flinging across any park, yard, or lake(it floats!)",
+      productCatergory: "Toy",
+      productInventory: 100,
+    }),
+  ]);
+
   return {
     users: {
       cody: users[0],
-      murphy: users[1]
-    }
-  }
+      murphy: users[1],
+    },
+  };
 }
 
 /*
@@ -32,16 +73,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...')
+  console.log("seeding...");
   try {
-    await seed()
+    await seed();
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
+    console.error(err);
+    process.exitCode = 1;
   } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log("closing db connection");
+    await db.close();
+    console.log("db connection closed");
   }
 }
 
@@ -51,8 +92,8 @@ async function runSeed() {
   any errors that might occur inside of `seed`.
 */
 if (module === require.main) {
-  runSeed()
+  runSeed();
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
+module.exports = seed;
