@@ -9,7 +9,7 @@ export const getProducts = (products) => {
   };
 };
 
-export const fetchProjects = () => {
+export const fetchProducts = () => {
   return async (dispatch) => {
     try {
       const { data } = await Axios.get("/api/products");
