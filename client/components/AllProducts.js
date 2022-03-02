@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchProducts } from "../store/Allproducts";
 // import Createproducts from "./Createproducts";
@@ -19,16 +19,14 @@ export class AllProducts extends React.Component {
           {this.props.products.map((product) => {
             return (
               <div className="card" key={product.id}>
+                <h2>{product.name}</h2>
+                <img src={product.imageUrl} />
+                <p>${product.price}</p>
                 <Link to={`/products/${product.id}`}>
-                  <h2>{product.name}</h2>
-                  <img src={product.imageUrl} />
-                  <p>${product.price}</p>
-                  <Link to={`/products/${product.id}`}>
-                    <button>See More</button>
-                  </Link>
-                  <Link to={`/products/${product.id}/addToCart`}>
-                    <button>Add To Cart</button>
-                  </Link>
+                  <button>See More</button>
+                </Link>
+                <Link to={`/products/${product.id}/addToCart`}>
+                  <button>Add To Cart</button>
                 </Link>
               </div>
             );
