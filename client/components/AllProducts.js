@@ -1,7 +1,7 @@
 import React from "react";
 // import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchProducts } from "../store/allProducts";
+import { fetchProducts } from "../store/Allproducts";
 // import Createproducts from "./Createproducts";
 
 export class AllProducts extends React.Component {
