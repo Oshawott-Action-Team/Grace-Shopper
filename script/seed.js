@@ -53,7 +53,7 @@ async function seed() {
       name: "Chuckit! Flying Squirrel",
       imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSspfzrcZyh1AEM94DjOk2dhoBkVlN2Y6tfTA&usqp=CAU",
       price: 7.99,
-      description: "If your dog loves chasing squirrels and playing fetch, this toy combines the best of both worlds. Perfect for flinging across any park, yard, or lake(it floats!)".,
+      description: "If your dog loves chasing squirrels and playing fetch, this toy combines the best of both worlds. Perfect for flinging across any park, yard, or lake(it floats!)",
       productCatergory: "Toy",
       productInventory: 100,
     }),
