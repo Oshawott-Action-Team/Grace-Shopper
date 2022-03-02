@@ -26,7 +26,7 @@ async function seed() {
   const products = await Promise.all([
     Product.create({
       name: "Blue Buffalo Life Protection Dog Food",
-      imgUrl:
+      imageUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkbDbfzh3o6ritcPcTsMhCEiXU7c_MZMbAwg&usqp=CAU",
       price: 45,
       description: "Holistic formula for health and well-being of dog and a healthy shinny coat. Contains all natural ingredients",
@@ -35,7 +35,7 @@ async function seed() {
     }),
     Product.create({
       name: "Lifetime Leash",
-      imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmTDgIGYbRRhrktvZyUPFjnDzw4TIYswnbXw&usqp=CAU",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmTDgIGYbRRhrktvZyUPFjnDzw4TIYswnbXw&usqp=CAU",
       price: 24.99,
       description: "Rope style leash for all dog types built to last a life time",
       productCatergory: "Accessory",
@@ -43,7 +43,7 @@ async function seed() {
     }),
     Product.create({
       name: "Arm & Hammer Dental Chew Toy: Gorilla",
-      imgUrl: "https://images-na.ssl-images-amazon.com/images/I/71uC4K3GgrL._AC_SL1500_.jpg",
+      imageUrl: "https://images-na.ssl-images-amazon.com/images/I/71uC4K3GgrL._AC_SL1500_.jpg",
       price: 12.00,
       description: "Extremely durable. Designed to clean your canines teeth, freshen their breath, promote gum health, and keep them entertained throughout the day.",
       productCatergory: "Toy",
@@ -51,7 +51,7 @@ async function seed() {
     }),
     Product.create({
       name: "Chuckit! Flying Squirrel",
-      imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSspfzrcZyh1AEM94DjOk2dhoBkVlN2Y6tfTA&usqp=CAU",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSspfzrcZyh1AEM94DjOk2dhoBkVlN2Y6tfTA&usqp=CAU",
       price: 7.99,
       description: "If your dog loves chasing squirrels and playing fetch, this toy combines the best of both worlds. Perfect for flinging across any park, yard, or lake(it floats!)".,
       productCatergory: "Toy",
