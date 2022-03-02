@@ -1,14 +1,14 @@
 const productsRouter = require("express").Router();
 
-const { Products } = require("../db");
+const { Product } = require("../db");
 
 productsRouter.get("/", async (req, res, next) => {
   try {
-    const products = await Products.findAll();
+    const products = await Product.findAll();
     res.send(products);
   } catch (err) {
     next(err);
   }
 });
 
-module.export = productsRouter;
+module.exports = productsRouter;
