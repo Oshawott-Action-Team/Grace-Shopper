@@ -22,10 +22,10 @@ const Product = db.define('product', {
   description: {
     type: Sequelize.DataTypes.TEXT,
   },
-  product_category: {
+  productCategory: {
     type: Sequelize.DataTypes.TEXT,
   },
-  product_inventory: {
+  productInventory: {
     type: Sequelize.DataTypes.INTEGER,
     validate: {
       isInt: true,
