@@ -4,6 +4,7 @@ const {
   db,
   models: { User, Product },
 } = require("../server/db");
+const Order = require("../server/db/models/Order");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -15,12 +16,49 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: "cody", password: "123" }),
-    User.create({ username: "murphy", password: "123" }),
+    User.create({
+      username: "cody",
+      password: "123",
+      firstName: "cody",
+      lastName: "cafe",
+      email: "abc@gmail.com",
+      address1: "dsfdsg",
+      address2: "daasdasd",
+      city: "raleigh",
+      state: "NC",
+      postCode: 27560,
+    }),
+    User.create({
+      username: "murphy",
+      password: "123",
+      firstName: "cody",
+      lastName: "cafe",
+      email: "ab@gmail.com",
+      address1: "dsfdsg",
+      address2: "daasdasd",
+      city: "raleigh",
+      state: "NC",
+      postCode: 27560,
+    }),
   ]);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
+
+  let orders = await Promise.all([
+    Order.create({
+      orderStatus: "new",
+    }),
+    Order.create({
+      orderStatus: "new",
+    }),
+    Order.create({
+      orderStatus: "completed",
+    }),
+    Order.create({
+      orderStatus: "new",
+    }),
+  ]);
 
   // Creating Products
   const products = await Promise.all([
@@ -57,6 +95,11 @@ async function seed() {
         "Your pup will feel like a beautiful, post-metamorphasis butterfly from the inside out while wearing this piece.",
     }),
   ]);
+
+  await products[0].addOrders([orders[0], orders[1]]);
+  await orders[3].addProducts([products[0], products[1]]);
+  // console.log(Object.keys(Product.prototype));
+  // console.log(Object.keys(Order.prototype));
 
   return {
     users: {
