@@ -31,8 +31,6 @@ async function seed() {
       price: 45,
       description:
         "Ariel the mermaid WHO??? Your dog will dazzle in this purple sequin, teal fish scale print",
-      productCatergory: "Costume",
-      productInventory: 100,
     }),
     Product.create({
       name: "Dino",
@@ -41,8 +39,6 @@ async function seed() {
       price: 24.99,
       description:
         "Let your dog live out their dino fantasies with this stunning headpiece",
-      productCatergory: "Accessory",
-      productInventory: 100,
     }),
     Product.create({
       name: "Mail Man",
@@ -51,8 +47,6 @@ async function seed() {
       price: 12.0,
       description:
         "Neither snow nor rain nor heat nor gloom of night will keep your pup from trick-or-treating when they're dressed in this US Mail Carrier Dog Costume. The blue outfit features foam arms that hold up a USPS box, giving the illusion that your dog is walking on two legs. This easy, slip-on outfit stays closed with a hook-and-loop closure. People will be more excited for this little mail carrier than they are for the package they bring! ",
-      productCatergory: "Business",
-      productInventory: 100,
     }),
     Product.create({
       name: "Butterfly",
@@ -61,8 +55,6 @@ async function seed() {
       price: 7.99,
       description:
         "Your pup will feel like a beautiful, post-metamorphasis butterfly from the inside out while wearing this piece.",
-      productCatergory: "Date Night",
-      productInventory: 100,
     }),
   ]);
 
