@@ -1,9 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "../store";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
+
+const Navbar = ({ handleClick, isLoggedIn, username }) => (
   <div>
     <h1>Pawty City</h1>
     <nav>
@@ -11,6 +12,15 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
+          <Link to="/products">All Products</Link>
+          <Link to="/cart">
+            <img
+              src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
+              style={{ height: 60 }}
+            />
+            Cart
+          </Link>
+          <span>Hello, {username}</span>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -18,6 +28,14 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
+          <Link to="/products">All Products</Link>
+          <Link to="/cart">
+            <img
+              src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
+              style={{ height: 60 }}
+            />
+            Cart
+          </Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
@@ -33,6 +51,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+
+    username: state.auth.username,
+
   };
 };
 
