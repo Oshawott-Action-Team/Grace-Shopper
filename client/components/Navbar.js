@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -50,7 +51,9 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+
     username: state.auth.username,
+
   };
 };
 

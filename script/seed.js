@@ -25,37 +25,36 @@ async function seed() {
   // Creating Products
   const products = await Promise.all([
     Product.create({
-      name: "Blue Buffalo Life Protection Dog Food",
+      name: "Graceful Mermaid",
       imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkbDbfzh3o6ritcPcTsMhCEiXU7c_MZMbAwg&usqp=CAU",
+        "https://partycity6.scene7.com/is/image/PartyCity/_pdp_sq_?$_500x500_$&$product=PartyCity/P815188",
       price: 45,
-      description: "Holistic formula for health and well-being of dog and a healthy shinny coat. Contains all natural ingredients",
-      productCatergory: "Food",
-      productInventory: 100,
+      description:
+        "Ariel the mermaid WHO??? Your dog will dazzle in this purple sequin, teal fish scale print",
     }),
     Product.create({
-      name: "Lifetime Leash",
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmTDgIGYbRRhrktvZyUPFjnDzw4TIYswnbXw&usqp=CAU",
+      name: "Dino",
+      imageUrl:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1532720004-51JAxI-xRyL.jpg?crop=1xw:1xh;center,top&resize=768%3A%2A",
       price: 24.99,
-      description: "Rope style leash for all dog types built to last a life time",
-      productCatergory: "Accessory",
-      productInventory: 100,
+      description:
+        "Let your dog live out their dino fantasies with this stunning headpiece",
     }),
     Product.create({
-      name: "Arm & Hammer Dental Chew Toy: Gorilla",
-      imageUrl: "https://images-na.ssl-images-amazon.com/images/I/71uC4K3GgrL._AC_SL1500_.jpg",
-      price: 12.00,
-      description: "Extremely durable. Designed to clean your canines teeth, freshen their breath, promote gum health, and keep them entertained throughout the day.",
-      productCatergory: "Toy",
-      productInventory: 100,
+      name: "Mail Man",
+      imageUrl:
+        "https://partycity6.scene7.com/is/image/PartyCity/_pdp_sq_?$_500x500_$&$product=PartyCity/P856120",
+      price: 12.0,
+      description:
+        "Neither snow nor rain nor heat nor gloom of night will keep your pup from trick-or-treating when they're dressed in this US Mail Carrier Dog Costume. The blue outfit features foam arms that hold up a USPS box, giving the illusion that your dog is walking on two legs. This easy, slip-on outfit stays closed with a hook-and-loop closure. People will be more excited for this little mail carrier than they are for the package they bring! ",
     }),
     Product.create({
-      name: "Chuckit! Flying Squirrel",
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSspfzrcZyh1AEM94DjOk2dhoBkVlN2Y6tfTA&usqp=CAU",
+      name: "Butterfly",
+      imageUrl:
+        "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1532720256-51Jngn8Yx4L.jpg?crop=1xw:1xh;center,top&resize=768%3A%2A",
       price: 7.99,
-      description: "If your dog loves chasing squirrels and playing fetch, this toy combines the best of both worlds. Perfect for flinging across any park, yard, or lake(it floats!)",
-      productCatergory: "Toy",
-      productInventory: 100,
+      description:
+        "Your pup will feel like a beautiful, post-metamorphasis butterfly from the inside out while wearing this piece.",
     }),
   ]);
 
