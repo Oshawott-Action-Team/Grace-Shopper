@@ -6,8 +6,8 @@ const Order = db.define("order", {
     type: Sequelize.DECIMAL(10, 2),
   },
   orderStatus: {
-    type: Sequelize.ENUM(true, false),
-    defaultValue: false,
+    type: Sequelize.ENUM("new", "completed"),
+    defaultValue: "new",
   },
 });
 
