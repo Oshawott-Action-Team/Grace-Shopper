@@ -15,7 +15,7 @@ class SingleProduct extends React.Component {
         <img src={product.imageUrl} />
         <p>
           Quantity:
-          <input type="number" />
+          <input type="number" defaultValue="1" />
         </p>
         <p>${product.price}</p>
         <button>Add To Cart</button>
