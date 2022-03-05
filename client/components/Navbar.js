@@ -1,8 +1,7 @@
-
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn, username }) => (
   <div>
@@ -13,7 +12,8 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <Link to="/products">All Products</Link>
-          <Link to="/cart">
+          <Link to="/orders">My Orders</Link>
+          <Link to="/newOrder">
             <img
               src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
               style={{ height: 60 }}
@@ -29,7 +29,8 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/products">All Products</Link>
-          <Link to="/cart">
+          <Link to="/orders">My Orders</Link>
+          <Link to="/newOrder">
             <img
               src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
               style={{ height: 60 }}
@@ -53,7 +54,6 @@ const mapState = (state) => {
     isLoggedIn: !!state.auth.id,
 
     username: state.auth.username,
-
   };
 };
 

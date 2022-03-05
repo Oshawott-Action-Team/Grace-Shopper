@@ -19,76 +19,94 @@ export const getNewOrder = (newOrder) => {
   };
 };
 
-export const createNewOrder = (product) => {
-  return {
-    type: CREATE_ORDER,
-    product,
-  };
-};
+// export const createNewOrder = (product) => {
+//   return {
+//     type: CREATE_ORDER,
+//     product,
+//   };
+// };
 
-export const completeOrder = (order) => {
-  return {
-    type: COMPLETE_ORDER,
-    order,
-  };
-};
+// export const completeOrder = (order) => {
+//   return {
+//     type: COMPLETE_ORDER,
+//     order,
+//   };
+// };
 
-export const fetchOrders = (userId) => {
+export const fetchOrders = () => {
   return async (dispatch) => {
     try {
-      const { data } = await Axios.get(`/api/orders/complete/users/${userId}`);
-      dispatch(getOrders(data));
+      const token = window.localStorage.getItem("token");
+
+      if (token) {
+        const { data } = await Axios.get("/api/orders/complete", {
+          headers: {
+            authorization: token,
+          },
+        });
+        //console.log(data);
+        dispatch(getOrders(data));
+      }
     } catch (err) {
       console.error(err);
     }
   };
 };
 
-export const fetchNewOrder = (userId) => {
+export const fetchNewOrder = () => {
   return async (dispatch) => {
     try {
-      const { data } = await Axios.get(`/api/orders/new/users/${userId}`);
-      dispatch(getOrder(data));
+      const token = window.localStorage.getItem("token");
+
+      if (token) {
+        const { data } = await Axios.get("/api/orders/new", {
+          headers: {
+            authorization: token,
+          },
+        });
+
+        dispatch(getNewOrder(data));
+      }
     } catch (err) {
       console.error(err);
     }
   };
 };
 
-export const createNewOrder = (userId, product) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await Axios.post(`/api/orders/users/${userId}`, product);
-      dispatch(createNewOrder(data));
-    } catch (err) {
-      console.error(err);
-    }
-  };
-};
+// export const createNewOrder = (userId, product) => {
+//   return async (dispatch) => {
+//     try {
+//       const { data } = await Axios.post(`/api/orders/users/${userId}`, product);
+//       dispatch(createNewOrder(data));
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   };
+// };
 
-export const completeOrder = (orderId, userId) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await Axios.put(
-        `/api/orders/${orderId}/users/${userId}`
-      );
-      dispatch(completeOrder(data));
-    } catch (err) {
-      console.error(err);
-    }
-  };
-};
+// export const completeOrder = (orderId, userId) => {
+//   return async (dispatch) => {
+//     try {
+//       const { data } = await Axios.put(
+//         `/api/orders/${orderId}/users/${userId}`
+//       );
+//       dispatch(completeOrder(data));
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   };
+// };
 
 export default function orderReducer(state = [], action) {
   switch (action.type) {
     case GET_ORDERS:
       return action.orders;
     case GET_NEW_ORDER:
-      return state;
-    case CREATE_ORDER:
-      return state;
-    case COMPLETE_ORDER:
-      return state;
+      return action.newOrder;
+    // case CREATE_ORDER:
+    //   return state;
+    // case COMPLETE_ORDER:
+    //   return state;
 
     default:
       return state;
