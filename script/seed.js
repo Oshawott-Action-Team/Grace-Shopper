@@ -99,18 +99,56 @@ async function seed() {
     }),
   ]);
 
-  await products[0].addOrders([orders[0], orders[1]]);
-  await products[1].addOrders([orders[0], orders[1]]);
-  await orders[2].addProducts([products[2], products[3]]);
-  await orders[3].addProducts([products[0], products[1]]);
+  await products[0].addOrders(orders[0], {
+    through: { quantity: 5, salesPrice: 20 },
+  });
+  await products[0].addOrders(orders[1], {
+    through: { quantity: 8, salesPrice: 20 },
+  });
+
+  await products[1].addOrders(orders[0], {
+    through: { quantity: 2, salesPrice: 30 },
+  });
+  await products[1].addOrders(orders[1], {
+    through: { quantity: 1, salesPrice: 30 },
+  });
+
+  await orders[2].addProducts(products[2], {
+    through: { quantity: 6, salesPrice: 40 },
+  });
+  await orders[2].addProducts(products[3], {
+    through: { quantity: 10, salesPrice: 50 },
+  });
+
+  await orders[3].addProducts(products[0], {
+    through: { quantity: 4, salesPrice: 20 },
+  });
+  await orders[3].addProducts(products[1], {
+    through: { quantity: 6, salesPrice: 30 },
+  });
+
   // console.log(Object.keys(Product.prototype));
   // console.log(Object.keys(Order.prototype));
   // console.log(Object.keys(User.prototype));
   await users[0].addOrders([orders[0], orders[2], orders[4]]);
   await users[1].addOrders([orders[3], orders[1]]);
 
-  await orders[3].addProducts([products[1], products[2], products[3]]);
-  await orders[4].addProducts([products[0], products[1]]);
+  await orders[3].addProducts(products[1], {
+    through: { quantity: 9, salesPrice: 30 },
+  });
+  await orders[3].addProducts(products[2], {
+    through: { quantity: 12, salesPrice: 40 },
+  });
+  await orders[3].addProducts(products[3], {
+    through: { quantity: 1, salesPrice: 50 },
+  });
+
+  await orders[4].addProducts(products[0], {
+    through: { quantity: 4, salesPrice: 20 },
+  });
+  await orders[4].addProducts(products[1], {
+    through: { quantity: 3, salesPrice: 30 },
+  });
 
   return {
     users: {
