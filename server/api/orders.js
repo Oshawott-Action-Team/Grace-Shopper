@@ -1,4 +1,5 @@
 const ordersRouter = require('express').Router();
+// const { Op } = require('@sequelize/core');
 
 const {
   models: { Order, User, Product },
@@ -19,15 +20,11 @@ const requireToken = async (req, res, next) => {
 //GET /api/orders/complete/ : get all completed orders of a user
 ordersRouter.get('/complete', requireToken, async (req, res, next) => {
   try {
-    const orders = await User.findByPk(req.user.id, {
-      include: {
-        model: Order,
-        where: {
-          orderStatus: 'completed',
-        },
-      },
+    const orders = await Order.findAll({
+      where: { userId: req.user.id, orderStatus: 'completed' },
+      attributes: ['id', 'orderStatus', 'userId'],
     });
-    res.send(orders.orders);
+    res.send(orders);
   } catch (err) {
     next(err);
   }
@@ -36,31 +33,17 @@ ordersRouter.get('/complete', requireToken, async (req, res, next) => {
 // GET /api/orders/new/ : get the active (new) order of a user
 ordersRouter.get('/new', requireToken, async (req, res, next) => {
   try {
-    const orders = await User.findByPk(req.user.id, {
+    const order = await Order.findAll({
+      where: { userId: req.user.id, orderStatus: 'new' },
+      attributes: ['id', 'orderStatus', 'userId'],
       include: {
-        model: Order,
-        where: {
-          orderStatus: 'new',
-        },
-        include: {
-          model: Product,
-        },
+        model: Product,
+        attributes: ['id', 'name', 'imageUrl'],
+        through: { attributes: ['quantity', 'salesPrice'] },
       },
     });
-    // const order = await Order.findByPk()
-    res.send(orders.orders);
-  } catch (err) {
-    next(err);
-  }
-});
 
-// POST /api/orders/ : create a new order if there were none in the database
-ordersRouter.post('/', requireToken, async (req, res, next) => {
-  try {
-    const [order] = await Order.findOrCreate({
-      where: { orderStatus: 'new', userId: req.user.id },
-    });
-    res.status(201).send(order);
+    res.send(order);
   } catch (err) {
     next(err);
   }
@@ -87,17 +70,29 @@ ordersRouter.put('/:orderId', requireToken, async (req, res, next) => {
   }
 });
 
-ordersRouter.put(
-  '/:orderId/products/:productId',
-  requireToken,
-  async (req, res, next) => {
-    try {
-      //
-    } catch (err) {
-      next(err);
-    }
+ordersRouter.put('/', requireToken, async (req, res, next) => {
+  try {
+    const [order] = await Order.findOrCreate({
+      where: { orderStatus: 'new', userId: req.user.id },
+    });
+
+    await order.addProducts(req.body.product.id, {
+      through: { quantity: req.body.quantity, salesPrice: req.body.salesPrice },
+    });
+    res.send(
+      await Order.findByPk(order.id, {
+        attributes: ['id', 'orderStatus', 'userId'],
+        include: {
+          model: Product,
+          attributes: ['id', 'name'],
+          through: { attributes: ['quantity', 'salesPrice'] },
+        },
+      })
+    );
+  } catch (err) {
+    next(err);
   }
-);
+});
 
 ordersRouter.delete(
   '/:orderId/products/:productId',
