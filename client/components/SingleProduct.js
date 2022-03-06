@@ -1,40 +1,30 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { fetchSingleProduct } from "../store/singleProduct";
+// import { addOrderItem } from "../store/orderItem";
 
-class SingleProduct extends React.Component {
-  componentDidMount() {
-    this.props.loadProduct(this.props.match.params.productId);
-  }
+const SingleProduct = () => {
+  const product = useSelector((state) => state.singleProduct);
+  const dispatch = useDispatch();
+  const { productId } = useParams();
 
-  render() {
-    const product = this.props.product;
-    return (
-      <div className="card">
-        <h2>{product.name}</h2>
-        <img src={product.imageUrl} />
-        <p>
-          Quantity:
-          <input type="number" defaultValue="1" />
-        </p>
-        <p>${product.price}</p>
-        <button>Add To Cart</button>
-        <p>{product.description}</p>
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    dispatch(fetchSingleProduct(productId));
+  }, []);
 
-const mapState = (state) => {
-  return {
-    product: state.singleProduct,
-  };
+  return (
+    <div className="card">
+      <h2>{product.name}</h2>
+      <img src={product.imageUrl} />
+      <p>
+        Quantity:
+        <input type="number" defaultValue="1" />
+      </p>
+      <p>${product.price}</p>
+      <button>Add To Cart</button>
+      <p>{product.description}</p>
+    </div>
+  );
 };
-
-const mapDispatch = (dispatch) => {
-  return {
-    loadProduct: (id) => dispatch(fetchSingleProduct(id)),
-  };
-};
-
-export default connect(mapState, mapDispatch)(SingleProduct);
+export default SingleProduct;
