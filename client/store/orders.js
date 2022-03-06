@@ -2,8 +2,9 @@ import Axios from "axios";
 
 const GET_ORDERS = "GET_ORDERS";
 const GET_NEW_ORDER = "GET_NEW_ORDER";
-const CREATE_ORDER = "CREATE_ORDER";
+
 const COMPLETE_ORDER = "COMPLETE_ORDER";
+const DELETE_ORDERITEM = "DELETE_ORDERITEM";
 
 export const getOrders = (orders) => {
   return {
@@ -19,19 +20,18 @@ export const getNewOrder = (newOrder) => {
   };
 };
 
-// export const createNewOrder = (product) => {
-//   return {
-//     type: CREATE_ORDER,
-//     product,
-//   };
-// };
-
-// export const completeOrder = (order) => {
-//   return {
-//     type: COMPLETE_ORDER,
-//     order,
-//   };
-// };
+export const completeOrder = (order) => {
+  return {
+    type: COMPLETE_ORDER,
+    order,
+  };
+};
+export const deleteOrderItem = (orderItem) => {
+  return {
+    type: DELETE_ORDERITEM,
+    orderItem,
+  };
+};
 
 export const fetchOrders = () => {
   return async (dispatch) => {
@@ -73,29 +73,46 @@ export const fetchNewOrder = () => {
   };
 };
 
-// export const createNewOrder = (userId, product) => {
-//   return async (dispatch) => {
-//     try {
-//       const { data } = await Axios.post(`/api/orders/users/${userId}`, product);
-//       dispatch(createNewOrder(data));
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-// };
+export const completeNewOrder = (orderId) => {
+  console.log(orderId);
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        const { data } = await Axios.put(`/api/orders/orderItem`, orderId, {
+          headers: {
+            authorization: token,
+          },
+        });
+        console.log(data);
+        dispatch(completeOrder(data));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 
-// export const completeOrder = (orderId, userId) => {
-//   return async (dispatch) => {
-//     try {
-//       const { data } = await Axios.put(
-//         `/api/orders/${orderId}/users/${userId}`
-//       );
-//       dispatch(completeOrder(data));
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-// };
+export const fetchDeleteOrderItem = (productId) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem("token");
+
+      if (token) {
+        const { data } = await Axios.delete("/api/orders", {
+          headers: {
+            authorization: token,
+          },
+          data: productId,
+        });
+
+        dispatch(deleteOrderItem(data));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
 
 export default function orderReducer(state = [], action) {
   switch (action.type) {
@@ -103,11 +120,10 @@ export default function orderReducer(state = [], action) {
       return action.orders;
     case GET_NEW_ORDER:
       return action.newOrder;
-    // case CREATE_ORDER:
-    //   return state;
-    // case COMPLETE_ORDER:
-    //   return state;
-
+    case COMPLETE_ORDER:
+      return action.order;
+    case DELETE_ORDERITEM:
+      return action.orderItem;
     default:
       return state;
   }

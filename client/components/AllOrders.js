@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "../store/orders";
 
 // const AllOrders = () => {
 //   const orders = useSelector((state) => state.orders);
 //   const dispatch = useDispatch();
+//   const {id} = useParams()
 
 //   useEffect(() => {
 //     dispatch(fetchOrders());
@@ -42,7 +43,7 @@ export class AllOrders extends React.Component {
       <div>
         {orders.map((order) => {
           return (
-            <div>
+            <div key={order.id}>
               <h2>{order.id}</h2>
               <h2>{order.orderStatus}</h2>
             </div>

@@ -1,10 +1,64 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { fetchSingleProduct } from "../store/singleProduct";
+import { addOrderItem } from "../store/orderItem";
+
+// const SingleProduct = () => {
+//   const [quantity, setQuantity] = useState("1");
+//   const product = useSelector((state) => state.singleProduct);
+//   const dispatch = useDispatch();
+//   const { productId } = useParams();
+
+//   useEffect(() => {
+//     dispatch(fetchSingleProduct(productId));
+//   }, []);
+
+//   const addProduct = (id, quantity, salesPrice) => {
+//     dispatch(addOrderItem({ id, quantity, salesPrice }));
+//   };
+
+//   return (
+//     <div className="card">
+//       <div>
+//         <h2>{product.name}</h2>
+//         <img src={product.imageUrl} />
+//         <p>
+//           Quantity:
+//           <input
+//             type="number"
+//             onChange={(event) => setQuantity(event.target.value)}
+//             value={quantity}
+//             defaultValue={quantity}
+//           />
+//         </p>
+//         <p>${product.price}</p>
+
+//         <p>{product.description}</p>
+//       </div>
+//       <button onClick={addProduct(productId, quantity, product.price)}>
+//         Add To Cart
+//       </button>
+//     </div>
+//   );
+// };
+// export default SingleProduct;
 
 class SingleProduct extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quantity: "1",
+    };
+  }
   componentDidMount() {
     this.props.loadProduct(this.props.match.params.productId);
+  }
+  addProduct(id, quantity, price) {
+    this.props.createCart({ id: id, quantity: quantity, salesPrice: price });
+  }
+  updateQuantity(evt) {
+    this.setState({ quantity: evt.target.value });
   }
 
   render() {
@@ -15,10 +69,25 @@ class SingleProduct extends React.Component {
         <img src={product.imageUrl} />
         <p>
           Quantity:
-          <input type="number" defaultValue="1" />
+          <input
+            type="number"
+            onChange={(e) => this.updateQuantity(e)}
+            value={this.state.quantity}
+            min="1"
+          />
         </p>
         <p>${product.price}</p>
-        <button>Add To Cart</button>
+        <button
+          onClick={(id, price) =>
+            this.addProduct(
+              this.props.match.params.productId,
+              this.state.quantity,
+              product.price
+            )
+          }
+        >
+          Add To Cart
+        </button>
         <p>{product.description}</p>
       </div>
     );
@@ -34,6 +103,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadProduct: (id) => dispatch(fetchSingleProduct(id)),
+    createCart: (body) => dispatch(addOrderItem(body)),
   };
 };
 

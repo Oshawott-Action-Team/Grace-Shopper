@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { fetchNewOrder } from "../store/orders";
+import {
+  fetchNewOrder,
+  completeNewOrder,
+  fetchDeleteOrderItem,
+} from "../store/orders";
 
 export class Cart extends React.Component {
   constructor(props) {
@@ -11,26 +15,21 @@ export class Cart extends React.Component {
   componentDidMount() {
     this.props.load();
   }
+  complete(id) {
+    this.props.completeOrder({ id: id });
+  }
 
   render() {
-    // const products = this.props.orders[0].products || [];
-    // //console.log(orders);
-    // return (
-    //   <div>
-    //     {products.map((product) => {
-    //       return (
-    //         <div>
-    //           <h2>{product.id}</h2>
-
-    //           <h2>{product.orderStatus}</h2>
-    //         </div>
-    //       );
-    //     })}
-    //   </div>
-    // );
     const orders = this.props.orders;
+
     console.log(orders);
-    return (
+    const orderId = this.props.orders.map((order) => order.id);
+    //console.log(orderId[0]);
+    return orders[0] === undefined ? (
+      <div>
+        <img src="https://st2.depositphotos.com/1010305/9903/i/600/depositphotos_99030142-stock-photo-dog-with-shopping-cart.jpg"></img>
+      </div>
+    ) : (
       <div>
         {orders.map((order) => {
           return (
@@ -40,15 +39,32 @@ export class Cart extends React.Component {
                   <div className="card" key={product.id}>
                     <h2>{product.name}</h2>
                     <img src={product.imageUrl} />
-                    <p>${product.price}</p>
+                    <p>Qunatity:{product.orderItem.quantity}</p>
+                    <p>
+                      SalesPrice: $
+                      {product.orderItem.quantity *
+                        product.orderItem.salesPrice}
+                    </p>
+                    <button
+                      onClick={() =>
+                        this.props.deleteOrderItem({ id: product.id })
+                      }
+                    >
+                      Delete
+                    </button>
                   </div>
                 );
               })}
             </div>
           );
         })}
+
+        <button onClick={(id) => this.complete(orderId[0])}>
+          Proceed To Checkout
+        </button>
       </div>
     );
+    //}
   }
 }
 
@@ -61,6 +77,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     load: () => dispatch(fetchNewOrder()),
+    completeOrder: (id) => dispatch(completeNewOrder(id)),
+    deleteOrderItem: (id) => dispatch(fetchDeleteOrderItem(id)),
   };
 };
 
