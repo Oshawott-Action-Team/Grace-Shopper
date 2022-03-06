@@ -26,9 +26,6 @@ const AllProducts = () => {
               <Link to={`/products/${product.id}`}>
                 <button>See More</button>
               </Link>
-              {/* <Link to={`/products/${product.id}/addToCart`}>
-                  <button>Add To Cart</button>
-                </Link> */}
             </div>
           );
         })}
