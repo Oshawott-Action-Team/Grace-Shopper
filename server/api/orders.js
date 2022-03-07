@@ -4,6 +4,7 @@ const {
   models: { Order, User, Product },
 } = require("../db");
 
+
 // middleware to handle userId
 const requireToken = async (req, res, next) => {
   try {
@@ -17,13 +18,14 @@ const requireToken = async (req, res, next) => {
 };
 
 //GET /api/orders/complete/ : get all completed orders of a user
+
 ordersRouter.get("/complete", requireToken, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       where: { userId: req.user.id, orderStatus: "completed" },
       attributes: ["id", "orderStatus", "userId"],
     });
-    res.send(orders);
+    res.send(orders.orders);
   } catch (err) {
     next(err);
   }
@@ -46,6 +48,7 @@ ordersRouter.get("/new", requireToken, async (req, res, next) => {
     next(err);
   }
 });
+
 // POST /api/orders/ : create a new order if there were none in the database
 ordersRouter.put("/", requireToken, async (req, res, next) => {
   try {
@@ -70,6 +73,7 @@ ordersRouter.put("/", requireToken, async (req, res, next) => {
     next(err);
   }
 });
+
 // PUT /api/orders/orderItem  : update the status of an order from 'new' to 'completed'
 ordersRouter.put("/orderItem", requireToken, async (req, res, next) => {
   try {
