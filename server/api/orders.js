@@ -47,8 +47,8 @@ ordersRouter.get('/new', requireToken, async (req, res, next) => {
   }
 });
 
-// PUT /api/orders/:orderId : update the status of an order from 'new' to 'completed'
-ordersRouter.put('/:orderId', requireToken, async (req, res, next) => {
+// PUT /api/orders/orderItem : update the status of an order from 'new' to 'completed'
+ordersRouter.put('/orderItem', requireToken, async (req, res, next) => {
   try {
     // NEED UPDATE HERE WIP //
     const order = await Order.findByPk(req.params.orderId);
@@ -56,7 +56,7 @@ ordersRouter.put('/:orderId', requireToken, async (req, res, next) => {
       if (order.userId.toString() === req.user.id.toString()) {
         order.orderStatus = 'completed';
         await order.save();
-        res.send(order);
+        res.send([]);
       } else {
         res.send(404);
       }

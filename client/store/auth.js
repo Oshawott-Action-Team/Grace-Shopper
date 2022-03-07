@@ -1,12 +1,12 @@
-import axios from 'axios';
-import history from '../history';
+import axios from "axios";
+import history from "../history";
 
-const TOKEN = 'token';
+const TOKEN = "token";
 
 /**
  * ACTION TYPES
  */
-const SET_AUTH = 'SET_AUTH';
+const SET_AUTH = "SET_AUTH";
 
 /**
  * ACTION CREATORS
@@ -19,7 +19,7 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const me = () => async (dispatch) => {
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
-    const res = await axios.get('/auth/me', {
+    const res = await axios.get("/auth/me", {
       headers: {
         authorization: token,
       },
@@ -28,13 +28,58 @@ export const me = () => async (dispatch) => {
   }
 };
 
-export const authenticate =
-  (username, password, method) => async (dispatch) => {
+export const authenticateSignUp =
+  (
+    username,
+    password,
+    firstName,
+    lastName,
+    email,
+    address1,
+    address2,
+    city,
+    state,
+    postcode,
+    method
+  ) =>
+  async (dispatch) => {
     try {
-      const res = await axios.post(`/auth/${method}`, { username, password });
+      const res = await axios.post(`/auth/${method}`, {
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+        address1,
+        address2,
+        city,
+        state,
+        postcode,
+      });
       window.localStorage.setItem(TOKEN, res.data.token);
       dispatch(me());
-      history.push('/home');
+      history.push("/home");
+    } catch (authError) {
+      return dispatch(setAuth({ error: authError }));
+    }
+  };
+
+export const authenticate =
+  (
+    username,
+    password,
+
+    method
+  ) =>
+  async (dispatch) => {
+    try {
+      const res = await axios.post(`/auth/${method}`, {
+        username,
+        password,
+      });
+      window.localStorage.setItem(TOKEN, res.data.token);
+      dispatch(me());
+      history.push("/home");
     } catch (authError) {
       return dispatch(setAuth({ error: authError }));
     }
@@ -42,7 +87,7 @@ export const authenticate =
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
-  history.push('/');
+  history.push("/");
   return {
     type: SET_AUTH,
     auth: {},

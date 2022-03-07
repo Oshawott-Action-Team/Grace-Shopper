@@ -26,19 +26,31 @@ async function seed() {
       address2: 'daasdasd',
       city: 'raleigh',
       state: 'NC',
-      postCode: 27560,
+      postcode: 27560,
     }),
     User.create({
       username: 'murphy',
       password: '123',
-      firstName: 'murphy',
+      firstName: 'cody',
       lastName: 'cafe',
       email: 'ab@gmail.com',
       address1: 'dsfdsg',
       address2: 'daasdasd',
       city: 'raleigh',
       state: 'NC',
-      postCode: 27560,
+      postcode: 27560,
+    }),
+    User.create({
+      username: 'lucy',
+      password: '1234',
+      firstName: 'lucy',
+      lastName: 'harris',
+      email: 'abcd@gmail.com',
+      address1: 'dsfdsg',
+      address2: 'daasdasd',
+      city: 'raleigh',
+      state: 'NC',
+      postcode: 27560,
     }),
   ]);
 
@@ -154,6 +166,7 @@ async function seed() {
     users: {
       cody: users[0],
       murphy: users[1],
+      lucy: users[2],
     },
   };
 }

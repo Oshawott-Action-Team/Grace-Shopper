@@ -46,7 +46,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  postCode: {
+  postcode: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
