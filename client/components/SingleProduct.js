@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchSingleProduct } from "../store/singleProduct";
-import { addOrderItem } from "../store/orderItem";
+import { addOrderItem } from "../store/orders";
 
 // const SingleProduct = () => {
 //   const [quantity, setQuantity] = useState("1");
