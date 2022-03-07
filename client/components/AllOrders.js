@@ -56,7 +56,7 @@ export class AllOrders extends React.Component {
 
 const mapState = (state) => {
   return {
-    orders: state.orders,
+    orders: state.orders.completeOrder,
   };
 };
 

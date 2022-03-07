@@ -73,7 +73,7 @@ export const fetchNewOrder = () => {
   };
 };
 
-export const completeNewOrder = (orderId) => {
+export const completeNewOrder = (orderId, history) => {
   console.log(orderId);
   return async (dispatch) => {
     try {
@@ -86,6 +86,7 @@ export const completeNewOrder = (orderId) => {
         });
         console.log(data);
         dispatch(completeOrder(data));
+        history.push("/orders");
       }
     } catch (err) {
       console.log(err);
@@ -114,16 +115,22 @@ export const fetchDeleteOrderItem = (productId) => {
   };
 };
 
-export default function orderReducer(state = [], action) {
+const intialState = {
+  newOrder: [],
+  completeOrder: [],
+};
+
+export default function orderReducer(state = intialState, action) {
   switch (action.type) {
     case GET_ORDERS:
-      return action.orders;
+      return { ...state, completeOrder: action.orders };
     case GET_NEW_ORDER:
-      return action.newOrder;
+      return { ...state, newOrder: action.newOrder };
     case COMPLETE_ORDER:
-      return action.order;
+      state.completeOrder = [...state.completeOrder, action.order];
+      return state;
     case DELETE_ORDERITEM:
-      return action.orderItem;
+      return { ...state, newOrder: action.orderItem };
     default:
       return state;
   }

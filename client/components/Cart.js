@@ -25,7 +25,7 @@ export class Cart extends React.Component {
     console.log(orders);
     const orderId = this.props.orders.map((order) => order.id);
     //console.log(orderId[0]);
-    return orders[0] === undefined ? (
+    return orders[0] === undefined || orders[0].products.length === 0 ? (
       <div>
         <img src="https://st2.depositphotos.com/1010305/9903/i/600/depositphotos_99030142-stock-photo-dog-with-shopping-cart.jpg"></img>
       </div>
@@ -39,12 +39,14 @@ export class Cart extends React.Component {
                   <div className="card" key={product.id}>
                     <h2>{product.name}</h2>
                     <img src={product.imageUrl} />
-                    <p>Qunatity:{product.orderItem.quantity}</p>
+                    <p>Quantity:{product.orderItem.quantity}</p>
+                    <p>Price:{product.orderItem.salesPrice}</p>
                     <p>
-                      SalesPrice: $
+                      Total: $
                       {product.orderItem.quantity *
                         product.orderItem.salesPrice}
                     </p>
+
                     <button
                       onClick={() =>
                         this.props.deleteOrderItem({ id: product.id })
@@ -70,14 +72,14 @@ export class Cart extends React.Component {
 
 const mapState = (state) => {
   return {
-    orders: state.orders,
+    orders: state.orders.newOrder,
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, { history }) => {
   return {
     load: () => dispatch(fetchNewOrder()),
-    completeOrder: (id) => dispatch(completeNewOrder(id)),
+    completeOrder: (id) => dispatch(completeNewOrder(id, history)),
     deleteOrderItem: (id) => dispatch(fetchDeleteOrderItem(id)),
   };
 };
