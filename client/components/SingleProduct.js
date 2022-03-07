@@ -56,6 +56,9 @@ class SingleProduct extends React.Component {
   }
   addProduct(id, quantity, price) {
     this.props.createCart({ id: id, quantity: quantity, salesPrice: price });
+    alert(
+      `${this.state.quantity} ${this.props.product.name} costume(s) added to your cart`
+    );
   }
   updateQuantity(evt) {
     this.setState({ quantity: evt.target.value });
