@@ -51,7 +51,7 @@ ordersRouter.get('/new', requireToken, async (req, res, next) => {
 ordersRouter.put('/orderItem', requireToken, async (req, res, next) => {
   try {
     // NEED UPDATE HERE WIP //
-    const order = await Order.findByPk(req.params.orderId);
+    const order = await Order.findByPk(req.body.id);
     if (order) {
       if (order.userId.toString() === req.user.id.toString()) {
         order.orderStatus = 'completed';
@@ -107,7 +107,17 @@ ordersRouter.delete('/', requireToken, async (req, res, next) => {
       },
     });
     await order.removeProducts(req.body.id);
-    res.send(order);
+    res.send(
+      await Order.findAll({
+        where: { userId: req.user.id, orderStatus: 'new' },
+        attributes: ['id', 'orderStatus', 'userId'],
+        include: {
+          model: Product,
+          attributes: ['id', 'name', 'imageUrl'],
+          through: { attributes: ['quantity', 'salesPrice'] },
+        },
+      })
+    );
   } catch (err) {
     next(err);
   }

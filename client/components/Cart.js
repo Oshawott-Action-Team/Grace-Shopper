@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import {
   fetchNewOrder,
   completeNewOrder,
   fetchDeleteOrderItem,
-} from "../store/orders";
+} from '../store/orders';
 
 export class Cart extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
     this.props.load();
@@ -20,12 +20,15 @@ export class Cart extends React.Component {
   }
 
   render() {
-    const orders = this.props.orders;
+    console.log('props is below:');
+    console.log(this.props);
+    const orders = this.props.orders || [];
 
+    console.log('orders is below:');
     console.log(orders);
     const orderId = this.props.orders.map((order) => order.id);
     //console.log(orderId[0]);
-    return orders[0] === undefined ? (
+    return orders[0] === undefined || orders[0].products.length === 0 ? (
       <div>
         <img src="https://st2.depositphotos.com/1010305/9903/i/600/depositphotos_99030142-stock-photo-dog-with-shopping-cart.jpg"></img>
       </div>
@@ -39,18 +42,19 @@ export class Cart extends React.Component {
                   <div className="card" key={product.id}>
                     <h2>{product.name}</h2>
                     <img src={product.imageUrl} />
-                    <p>Qunatity:{product.orderItem.quantity}</p>
+                    <p>Quantity: {product.orderItem.quantity}</p>
+                    <p>Unit Price: {product.orderItem.salesPrice}</p>
                     <p>
-                      SalesPrice: $
+                      Total: $
                       {product.orderItem.quantity *
                         product.orderItem.salesPrice}
                     </p>
                     <button
-                      onClick={() =>
-                        this.props.deleteOrderItem({ id: product.id })
-                      }
+                      onClick={() => {
+                        this.props.deleteOrderItem({ id: product.id });
+                      }}
                     >
-                      Delete
+                      Remove
                     </button>
                   </div>
                 );
@@ -70,14 +74,14 @@ export class Cart extends React.Component {
 
 const mapState = (state) => {
   return {
-    orders: state.orders,
+    orders: state.orders.newOrder,
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, { history }) => {
   return {
     load: () => dispatch(fetchNewOrder()),
-    completeOrder: (id) => dispatch(completeNewOrder(id)),
+    completeOrder: (id) => dispatch(completeNewOrder(id, history)),
     deleteOrderItem: (id) => dispatch(fetchDeleteOrderItem(id)),
   };
 };
