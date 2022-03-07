@@ -19,7 +19,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
               src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
               style={{ height: 60 }}
             />
-            Cart
+            Cart ()
           </Link>
 
           <a href="#" onClick={handleClick}>
@@ -36,7 +36,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
               src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
               style={{ height: 60 }}
             />
-            Cart
+            Cart ()
           </Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
