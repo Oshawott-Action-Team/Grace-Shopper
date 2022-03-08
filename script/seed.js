@@ -139,9 +139,7 @@ async function seed() {
     through: { quantity: 6, salesPrice: 30 },
   });
 
-  // console.log(Object.keys(Product.prototype));
-  // console.log(Object.keys(Order.prototype));
-  // console.log(Object.keys(User.prototype));
+  
   await users[0].addOrders([orders[0], orders[2], orders[4]]);
   await users[1].addOrders([orders[3], orders[1]]);
 
