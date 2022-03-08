@@ -33,7 +33,7 @@ const Cart = () => {
 
   const complete = (id) => {
     dispatch(completeNewOrder({ id: id }, history));
-    console.log(orders);
+    
   };
 
   const deleteProduct = (id) => {
