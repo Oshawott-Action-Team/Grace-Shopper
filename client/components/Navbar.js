@@ -10,6 +10,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
+          <span>Hello, {username[0].toUpperCase() + username.slice(1)}</span>
           <Link to="/home">Home</Link>
           <Link to="/products">All Products</Link>
           <Link to="/orders">My Orders</Link>
@@ -18,9 +19,9 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
               src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
               style={{ height: 60 }}
             />
-            Cart
+            Cart ()
           </Link>
-          <span>Hello, {username[0].toUpperCase() + username.slice(1)}</span>
+
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -35,7 +36,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
               src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
               style={{ height: 60 }}
             />
-            Cart
+            Cart ()
           </Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>

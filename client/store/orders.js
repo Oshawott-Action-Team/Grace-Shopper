@@ -2,9 +2,9 @@ import Axios from "axios";
 
 const GET_ORDERS = "GET_ORDERS";
 const GET_NEW_ORDER = "GET_NEW_ORDER";
-
 const COMPLETE_ORDER = "COMPLETE_ORDER";
 const DELETE_ORDERITEM = "DELETE_ORDERITEM";
+const CLEAR_ORDERS = "CLEAR_ORDERS";
 
 export const getOrders = (orders) => {
   return {
@@ -30,6 +30,16 @@ export const deleteOrderItem = (orderItem) => {
   return {
     type: DELETE_ORDERITEM,
     orderItem,
+  };
+};
+
+export const clearOrderItems = () => {
+  return {
+    type: CLEAR_ORDERS,
+    orders: {
+      newOrder: [],
+      completeOrder: [],
+    },
   };
 };
 
@@ -83,6 +93,7 @@ export const completeNewOrder = (orderId, history) => {
           headers: {
             authorization: token,
           },
+          //else -> the user is a guest ... fetch from localStorage
         });
         console.log(data);
         dispatch(completeOrder(data));
@@ -131,6 +142,8 @@ export default function orderReducer(state = intialState, action) {
       return state;
     case DELETE_ORDERITEM:
       return { ...state, newOrder: action.orderItem };
+    case CLEAR_ORDERS:
+      return action.orders;
     default:
       return state;
   }

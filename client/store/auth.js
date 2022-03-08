@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import clearOrderItems from "./orders";
 
 const TOKEN = "token";
 
@@ -7,11 +8,13 @@ const TOKEN = "token";
  * ACTION TYPES
  */
 const SET_AUTH = "SET_AUTH";
+const REMOVE_AUTH = "REMOVE_AUTH";
 
 /**
  * ACTION CREATORS
  */
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
+// const removeAuth = () => ({ type: REMOVE_AUTH });
 
 /**
  * THUNK CREATORS
@@ -89,7 +92,7 @@ export const logout = () => {
   window.localStorage.removeItem(TOKEN);
   history.push("/");
   return {
-    type: SET_AUTH,
+    type: REMOVE_AUTH,
     auth: {},
   };
 };
@@ -100,6 +103,8 @@ export const logout = () => {
 export default function (state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
+      return action.auth;
+    case REMOVE_AUTH:
       return action.auth;
     default:
       return state;
