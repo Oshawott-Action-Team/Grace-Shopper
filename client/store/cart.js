@@ -1,9 +1,10 @@
-import Axios from 'axios';
+import Axios from "axios";
+import { COMPLETE_ORDER } from "./orders";
 
-const GET_NEW_ORDER = 'GET_NEW_ORDER';
-const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
+const GET_NEW_ORDER = "GET_NEW_ORDER";
+const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 
-const DELETE_ORDERITEM = 'DELETE_ORDERITEM';
+const DELETE_ORDERITEM = "DELETE_ORDERITEM";
 
 export const getNewOrder = (newOrder) => {
   return {
@@ -28,10 +29,10 @@ export const deleteOrderItem = (orderItem) => {
 export const fetchNewOrder = () => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
+      const token = window.localStorage.getItem("token");
 
       if (token) {
-        const { data } = await Axios.get('/api/orders/new', {
+        const { data } = await Axios.get("/api/orders/new", {
           headers: {
             authorization: token,
           },
@@ -48,7 +49,7 @@ export const fetchNewOrder = () => {
 export const updateProduct = (cartProduct) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
+      const token = window.localStorage.getItem("token");
       if (token) {
         const { data } = await Axios.put(`/api/orders/product`, cartProduct, {
           headers: {
@@ -66,10 +67,10 @@ export const updateProduct = (cartProduct) => {
 export const fetchDeleteOrderItem = (productId) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
+      const token = window.localStorage.getItem("token");
 
       if (token) {
-        const { data } = await Axios.delete('/api/orders', {
+        const { data } = await Axios.delete("/api/orders", {
           headers: {
             authorization: token,
           },
@@ -94,6 +95,11 @@ export default function cartReducer(state = intialState, action) {
       return action.order;
     case DELETE_ORDERITEM:
       return action.orderItem;
+    case COMPLETE_ORDER:
+      return [];
+
+    //case GUEST_USER
+    //return key
     default:
       return state;
   }

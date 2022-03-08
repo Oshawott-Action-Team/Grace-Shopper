@@ -29,6 +29,7 @@ const SingleProduct = () => {
             onChange={(event) => setQuantity(event.target.value)}
             value={quantity}
             defaultValue={quantity}
+            min="1"
           />
         </p>
         <p>${product.price}</p>
