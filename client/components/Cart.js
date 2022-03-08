@@ -13,7 +13,6 @@ const Cart = () => {
     dispatch(fetchNewOrder());
   }, []);
 
-  console.log(quantity);
 
   const onChangeQuantity = (orderId, productId, quantity, salesPrice) => {
     dispatch(
