@@ -1,7 +1,6 @@
 import Axios from "axios";
 
 const GET_ORDERS = "GET_ORDERS";
-const GET_NEW_ORDER = "GET_NEW_ORDER";
 
 const COMPLETE_ORDER = "COMPLETE_ORDER";
 const DELETE_ORDERITEM = "DELETE_ORDERITEM";
@@ -10,13 +9,6 @@ export const getOrders = (orders) => {
   return {
     type: GET_ORDERS,
     orders,
-  };
-};
-
-export const getNewOrder = (newOrder) => {
-  return {
-    type: GET_NEW_ORDER,
-    newOrder,
   };
 };
 
@@ -44,28 +36,7 @@ export const fetchOrders = () => {
             authorization: token,
           },
         });
-        //console.log(data);
         dispatch(getOrders(data));
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-};
-
-export const fetchNewOrder = () => {
-  return async (dispatch) => {
-    try {
-      const token = window.localStorage.getItem("token");
-
-      if (token) {
-        const { data } = await Axios.get("/api/orders/new", {
-          headers: {
-            authorization: token,
-          },
-        });
-
-        dispatch(getNewOrder(data));
       }
     } catch (err) {
       console.error(err);
@@ -116,7 +87,6 @@ export const fetchDeleteOrderItem = (productId) => {
 };
 
 const intialState = {
-  newOrder: [],
   completeOrder: [],
 };
 
@@ -124,8 +94,6 @@ export default function orderReducer(state = intialState, action) {
   switch (action.type) {
     case GET_ORDERS:
       return { ...state, completeOrder: action.orders };
-    case GET_NEW_ORDER:
-      return { ...state, newOrder: action.newOrder };
     case COMPLETE_ORDER:
       state.completeOrder = [...state.completeOrder, action.order];
       return state;
