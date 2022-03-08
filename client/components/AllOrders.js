@@ -1,31 +1,7 @@
-import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { fetchOrders } from "../store/orders";
-
-// const AllOrders = () => {
-//   const orders = useSelector((state) => state.orders);
-//   const dispatch = useDispatch();
-//   const {id} = useParams()
-
-//   useEffect(() => {
-//     dispatch(fetchOrders());
-//   }, []);
-
-//   console.log(orders);
-//   return (
-//     <div>
-//       {orders.map((order) => {
-//         <ui>
-//           <li>{order.id}</li>
-//           <li>{order.orderStatus}</li>
-//         </ui>;
-//       })}
-//     </div>
-//   );
-// };
-
-// export default AllOrders;
+import React, { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { fetchOrders } from '../store/orders';
 
 export class AllOrders extends React.Component {
   constructor(props) {
@@ -38,7 +14,6 @@ export class AllOrders extends React.Component {
 
   render() {
     const orders = this.props.orders;
-    console.log(orders);
     return (
       <div>
         {orders.map((order) => {

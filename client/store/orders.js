@@ -1,9 +1,10 @@
-import Axios from "axios";
+import Axios from 'axios';
+
 
 const GET_ORDERS = "GET_ORDERS";
 
-const COMPLETE_ORDER = "COMPLETE_ORDER";
-const DELETE_ORDERITEM = "DELETE_ORDERITEM";
+const COMPLETE_ORDER = 'COMPLETE_ORDER';
+const DELETE_ORDERITEM = 'DELETE_ORDERITEM';
 
 export const getOrders = (orders) => {
   return {
@@ -28,10 +29,10 @@ export const deleteOrderItem = (orderItem) => {
 export const fetchOrders = () => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem("token");
+      const token = window.localStorage.getItem('token');
 
       if (token) {
-        const { data } = await Axios.get("/api/orders/complete", {
+        const { data } = await Axios.get('/api/orders/complete', {
           headers: {
             authorization: token,
           },
@@ -45,18 +46,17 @@ export const fetchOrders = () => {
 };
 
 export const completeNewOrder = (orderId, history) => {
-  console.log(orderId);
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem("token");
+      const token = window.localStorage.getItem('token');
       if (token) {
         const { data } = await Axios.put(`/api/orders/orderItem`, orderId, {
           headers: {
             authorization: token,
           },
         });
-        console.log(data);
         dispatch(completeOrder(data));
+
         history.push("/orders");
       }
     } catch (err) {
@@ -68,10 +68,10 @@ export const completeNewOrder = (orderId, history) => {
 export const fetchDeleteOrderItem = (productId) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem("token");
+      const token = window.localStorage.getItem('token');
 
       if (token) {
-        const { data } = await Axios.delete("/api/orders", {
+        const { data } = await Axios.delete('/api/orders', {
           headers: {
             authorization: token,
           },
@@ -85,6 +85,7 @@ export const fetchDeleteOrderItem = (productId) => {
     }
   };
 };
+
 
 const intialState = {
   completeOrder: [],

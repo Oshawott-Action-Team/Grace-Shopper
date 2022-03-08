@@ -1,6 +1,6 @@
-import Axios from "axios";
+import Axios from 'axios';
 
-const ADD_PRODUCTS = "ADD_PRODUCTS";
+const ADD_PRODUCTS = 'ADD_PRODUCTS';
 
 export const addProducts = (order) => {
   return {
@@ -12,10 +12,10 @@ export const addProducts = (order) => {
 export const addOrderItem = (product) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem("token");
+      const token = window.localStorage.getItem('token');
       //console.log(token);
       if (token) {
-        const { data } = await Axios.put("/api/orders", product, {
+        const { data } = await Axios.put('/api/orders', product, {
           headers: {
             authorization: token,
           },
@@ -27,6 +27,7 @@ export const addOrderItem = (product) => {
     }
   };
 };
+
 
 export default function orderItemReducer(state = {}, action) {
   switch (action.type) {

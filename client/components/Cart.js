@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -9,10 +10,10 @@ const Cart = () => {
   const orders = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     dispatch(fetchNewOrder());
   }, []);
-
 
   const onChangeQuantity = (orderId, productId, quantity, salesPrice) => {
     dispatch(
@@ -25,9 +26,11 @@ const Cart = () => {
     );
   };
 
+
   const complete = (id) => {
     dispatch(completeNewOrder({ id: id }));
   };
+
 
   const deleteProduct = (id) => {
     dispatch(fetchDeleteOrderItem({ id: id }));
