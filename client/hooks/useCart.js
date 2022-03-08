@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addOrderItem, updateQuantity } from '../store/orderItem';
+import {  updateProduct } from '../store/cart';
+import { addOrderItem } from '../store/orderItem';
+
 
 export const useCart = () => {
   const newOrder = useSelector((state) => state.orders.newOrder);
@@ -13,7 +15,6 @@ export const useCart = () => {
       return { isExisted, existedProduct };
     }
     const checkId = newOrder[0].products.map((product) => {
-      console.log(`product id: ${product.id}, id: ${id}`);
       if (product.id.toString() === id.toString()) {
         isExisted = true;
         existedProduct = {
@@ -39,11 +40,9 @@ export const useCart = () => {
 
   const addToCart = (id, quantity, salesPrice) => {
     const { isExisted, existedProduct } = isProductExists(id);
-    console.log(`existed product qty is ${existedProduct.quantity}`);
-    console.log(`new quantity is ${existedProduct.quantity} + ${quantity}`);
     if (isExisted) {
       dispatch(
-        updateQuantity({
+        updateProduct({
           orderId: existedProduct.orderId,
           productId: existedProduct.productId,
           quantity: existedProduct.quantity * 1 + quantity * 1,
