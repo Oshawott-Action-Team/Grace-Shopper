@@ -47,7 +47,6 @@ export const updateProduct = (cartProduct) => {
             authorization: token,
           },
         });
-        console.log(data);
         dispatch(updateCartProduct(data));
       }
     } catch (err) {
