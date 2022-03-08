@@ -1,7 +1,9 @@
-import Axios from "axios";
+import Axios from 'axios';
 
-const GET_NEW_ORDER = "GET_NEW_ORDER";
-const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+const GET_NEW_ORDER = 'GET_NEW_ORDER';
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
+
+const DELETE_ORDERITEM = 'DELETE_ORDERITEM';
 
 export const getNewOrder = (newOrder) => {
   return {
@@ -17,13 +19,19 @@ export const updateCartProduct = (order) => {
   };
 };
 
+export const deleteOrderItem = (orderItem) => {
+  return {
+    type: DELETE_ORDERITEM,
+    orderItem,
+  };
+};
 export const fetchNewOrder = () => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem("token");
+      const token = window.localStorage.getItem('token');
 
       if (token) {
-        const { data } = await Axios.get("/api/orders/new", {
+        const { data } = await Axios.get('/api/orders/new', {
           headers: {
             authorization: token,
           },
@@ -40,7 +48,7 @@ export const fetchNewOrder = () => {
 export const updateProduct = (cartProduct) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem("token");
+      const token = window.localStorage.getItem('token');
       if (token) {
         const { data } = await Axios.put(`/api/orders/product`, cartProduct, {
           headers: {
@@ -55,6 +63,27 @@ export const updateProduct = (cartProduct) => {
   };
 };
 
+export const fetchDeleteOrderItem = (productId) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem('token');
+
+      if (token) {
+        const { data } = await Axios.delete('/api/orders', {
+          headers: {
+            authorization: token,
+          },
+          data: productId,
+        });
+
+        dispatch(deleteOrderItem(data));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 const intialState = [];
 
 export default function cartReducer(state = intialState, action) {
@@ -63,6 +92,8 @@ export default function cartReducer(state = intialState, action) {
       return action.newOrder;
     case UPDATE_PRODUCT:
       return action.order;
+    case DELETE_ORDERITEM:
+      return action.orderItem;
     default:
       return state;
   }

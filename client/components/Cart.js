@@ -1,15 +1,20 @@
-
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { completeNewOrder, fetchDeleteOrderItem } from "../store/orders";
-import { fetchNewOrder, updateProduct } from "../store/cart";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { completeNewOrder } from '../store/orders';
+import {
+  fetchNewOrder,
+  updateProduct,
+  fetchDeleteOrderItem,
+} from '../store/cart';
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState("1");
+  const [quantity, setQuantity] = useState('1');
   const orders = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchNewOrder());
@@ -26,16 +31,16 @@ const Cart = () => {
     );
   };
 
-
   const complete = (id) => {
-    dispatch(completeNewOrder({ id: id }));
+    dispatch(completeNewOrder({ id: id }, history));
   };
-
 
   const deleteProduct = (id) => {
     dispatch(fetchDeleteOrderItem({ id: id }));
   };
 
+  const orderId = orders.map((order) => order.id);
+  console.log(orderId);
   return orders[0] === undefined || orders[0].products.length === 0 ? (
     <div>
       <img src="https://st2.depositphotos.com/1010305/9903/i/600/depositphotos_99030142-stock-photo-dog-with-shopping-cart.jpg"></img>

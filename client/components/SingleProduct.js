@@ -34,11 +34,15 @@ const SingleProduct = () => {
         <p>${product.price}</p>
         <p>{product.description}</p>
       </div>
-      <button onClick={() => addToCart(productId, quantity, product.price)}>
+      <button
+        onClick={() => {
+          addToCart(productId, quantity, product.price);
+          alert(`${quantity} ${product.name} costume(s) added to your cart`);
+        }}
+      >
         Add To Cart
       </button>
     </div>
   );
 };
 export default SingleProduct;
-
