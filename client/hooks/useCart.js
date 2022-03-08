@@ -53,7 +53,20 @@ export const useCart = () => {
     }
   };
 
+  const getCartQuantity = () => {
+    let cartQuantity = 0;
+    if (newOrder[0] === undefined) {
+      return cartQuantity;
+    } else {
+      return (cartQuantity = newOrder[0].products.reduce(
+        (acc, product) => (acc += product.orderItem.quantity),
+        0
+      ));
+    }
+  };
+
   return {
+    getCartQuantity,
     cart: newOrder,
     addToCart,
   };
