@@ -10,7 +10,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => {
   useEffect(() => {
     dispatch(fetchNewOrder());
   }, []);
-  console.log(newOrder[0]);
+
   let cartQuantity = 0;
   if (newOrder[0] === undefined) {
     return cartQuantity;
@@ -20,9 +20,6 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => {
       0
     );
   }
-
-  console.log(cartQuantity);
-  // (cartQuantity.reduce((acc, quantity)=> acc+=quantity, 0))
 
   return (
     <div>
