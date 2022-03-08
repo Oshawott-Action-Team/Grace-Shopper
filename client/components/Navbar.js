@@ -20,7 +20,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => (
             />
             Cart
           </Link>
-          <span>Hello, {username}</span>
+          <span>Hello, {username[0].toUpperCase() + username.slice(1)}</span>
           <a href="#" onClick={handleClick}>
             Logout
           </a>

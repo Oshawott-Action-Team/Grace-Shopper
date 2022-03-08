@@ -3,30 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { fetchOrders } from '../store/orders';
 
-// const AllOrders = () => {
-//   const orders = useSelector((state) => state.orders);
-//   const dispatch = useDispatch();
-//   const {id} = useParams()
-
-//   useEffect(() => {
-//     dispatch(fetchOrders());
-//   }, []);
-
-//   console.log(orders);
-//   return (
-//     <div>
-//       {orders.map((order) => {
-//         <ui>
-//           <li>{order.id}</li>
-//           <li>{order.orderStatus}</li>
-//         </ui>;
-//       })}
-//     </div>
-//   );
-// };
-
-// export default AllOrders;
-
 export class AllOrders extends React.Component {
   constructor(props) {
     super(props);
@@ -38,10 +14,6 @@ export class AllOrders extends React.Component {
 
   render() {
     const orders = this.props.orders;
-    console.log('props below');
-    console.log(this.props);
-    console.log('orders below');
-    console.log(orders);
     return (
       <div>
         {orders.map((order) => {
@@ -59,7 +31,7 @@ export class AllOrders extends React.Component {
 
 const mapState = (state) => {
   return {
-    orders: state.orders.completedOrders,
+    orders: state.orders.completeOrder,
   };
 };
 
