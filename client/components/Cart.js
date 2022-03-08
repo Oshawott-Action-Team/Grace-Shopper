@@ -20,12 +20,12 @@ export class Cart extends React.Component {
   }
 
   render() {
-    console.log('props is below:');
-    console.log(this.props);
+    // console.log('props is below:');
+    // console.log(this.props);
     const orders = this.props.orders || [];
 
-    console.log('orders is below:');
-    console.log(orders);
+    // console.log('orders is below:');
+    // console.log(orders);
     const orderId = this.props.orders.map((order) => order.id);
     //console.log(orderId[0]);
     return orders[0] === undefined || orders[0].products.length === 0 ? (

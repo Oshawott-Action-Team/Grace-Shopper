@@ -1,7 +1,7 @@
 const ordersRouter = require('express').Router();
 
 const {
-  models: { Order, User, Product },
+  models: { Order, User, Product, OrderItem },
 } = require('../db');
 
 // middleware to handle userId by token
@@ -85,6 +85,36 @@ ordersRouter.put('/', requireToken, async (req, res, next) => {
         include: {
           model: Product,
           attributes: ['id', 'name', 'imageUrl'],
+          through: { attributes: ['quantity', 'salesPrice'] },
+        },
+      })
+    );
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PUT /api/orders/product
+ordersRouter.put('/product', requireToken, async (req, res, next) => {
+  try {
+    const cartProduct = await OrderItem.findOne({
+      where: {
+        orderId: req.body.orderId,
+        productId: req.body.productId,
+      },
+    });
+
+    await cartProduct.update({
+      quantity: req.body.quantity,
+      salesPrice: req.body.salesPrice,
+    });
+    res.send(
+      await Order.findAll({
+        where: { userId: req.user.id, orderStatus: 'new' },
+        attributes: ['id', 'orderStatus', 'userId'],
+        include: {
+          model: Product,
+          attributes: ['id', 'name', 'imageUrl', 'price'],
           through: { attributes: ['quantity', 'salesPrice'] },
         },
       })
