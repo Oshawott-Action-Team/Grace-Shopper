@@ -1,50 +1,73 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { fetchNewOrder } from "../store/cart";
 
-const Navbar = ({ handleClick, isLoggedIn, username }) => (
-  <div>
-    <h1>Pawty City</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <Link to="/products">All Products</Link>
-          <Link to="/orders">My Orders</Link>
-          <Link to="/newOrder">
-            <img
-              src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
-              style={{ height: 60 }}
-            />
-            Cart
-          </Link>
-          <span>Hello, {username[0].toUpperCase() + username.slice(1)}</span>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/products">All Products</Link>
-          <Link to="/orders">My Orders</Link>
-          <Link to="/newOrder">
-            <img
-              src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
-              style={{ height: 60 }}
-            />
-            Cart
-          </Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-);
+const Navbar = ({ handleClick, isLoggedIn, username }) => {
+  const newOrder = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchNewOrder());
+  }, []);
+  console.log(newOrder[0]);
+  let cartQuantity = 0;
+  if (newOrder[0] === undefined) {
+    return cartQuantity;
+  } else {
+    cartQuantity = newOrder[0].products.reduce(
+      (acc, product) => (acc += product.orderItem.quantity),
+      0
+    );
+  }
+
+  console.log(cartQuantity);
+  // (cartQuantity.reduce((acc, quantity)=> acc+=quantity, 0))
+
+  return (
+    <div>
+      <h1>Pawty City</h1>
+      <nav>
+        {isLoggedIn ? (
+          <div>
+            {/* The navbar will show these links after you log in */}
+            <span>Hello, {username[0].toUpperCase() + username.slice(1)}</span>
+            <Link to="/home">Home</Link>
+            <Link to="/products">All Products</Link>
+            <Link to="/orders">My Orders</Link>
+            <Link to="/newOrder">
+              <img
+                src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
+                style={{ height: 60 }}
+              />
+              Cart ({cartQuantity})
+            </Link>
+
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/products">All Products</Link>
+            <Link to="/orders">My Orders</Link>
+            <Link to="/newOrder">
+              <img
+                src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
+                style={{ height: 60 }}
+              />
+              Cart
+            </Link>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        )}
+      </nav>
+      <hr />
+    </div>
+  );
+};
 
 /**
  * CONTAINER
