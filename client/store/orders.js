@@ -46,7 +46,6 @@ export const fetchOrders = () => {
 };
 
 export const completeNewOrder = (orderId, history) => {
-  console.log(orderId);
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem('token');
@@ -56,7 +55,6 @@ export const completeNewOrder = (orderId, history) => {
             authorization: token,
           },
         });
-        console.log(data);
         dispatch(completeOrder(data));
 
         history.push("/orders");
