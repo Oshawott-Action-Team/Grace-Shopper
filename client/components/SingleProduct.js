@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { fetchSingleProduct } from '../store/singleProduct';
-import { useCart } from '../hooks/useCart';
-import { fetchNewOrder } from '../store/cart';
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchSingleProduct } from "../store/singleProduct";
+import { useCart } from "../hooks/useCart";
+import { fetchNewOrder } from "../store/cart";
 
 const SingleProduct = () => {
-  const [quantity, setQuantity] = useState('1');
+  const [quantity, setQuantity] = useState("1");
   const product = useSelector((state) => state.singleProduct);
   const { addToCart } = useCart();
   const dispatch = useDispatch();
@@ -38,6 +38,7 @@ const SingleProduct = () => {
         onClick={() => {
           addToCart(productId, quantity, product.price);
           alert(`${quantity} ${product.name} costume(s) added to your cart`);
+          dispatch(fetchNewOrder());
         }}
       >
         Add To Cart

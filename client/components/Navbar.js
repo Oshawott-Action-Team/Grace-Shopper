@@ -11,15 +11,15 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => {
     dispatch(fetchNewOrder());
   }, []);
 
-  let cartQuantity = 0;
-  if (newOrder[0] === undefined) {
-    return cartQuantity;
-  } else {
-    cartQuantity = newOrder[0].products.reduce(
-      (acc, product) => (acc += product.orderItem.quantity),
-      0
-    );
-  }
+  // let cartQuantity = 0;
+  // if (newOrder[0] === undefined) {
+  //   return cartQuantity;
+  // } else {
+  //   cartQuantity = newOrder[0].products.reduce(
+  //     (acc, product) => (acc += product.orderItem.quantity),
+  //     0
+  //   );
+  // }
 
   return (
     <div>
@@ -37,7 +37,8 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => {
                 src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
                 style={{ height: 60 }}
               />
-              Cart ({cartQuantity})
+              Cart
+              {/* ({cartQuantity}) */}
             </Link>
 
             <a href="#" onClick={handleClick}>
