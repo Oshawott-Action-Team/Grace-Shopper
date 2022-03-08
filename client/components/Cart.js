@@ -40,7 +40,7 @@ const Cart = () => {
   };
 
   const orderId = orders.map((order) => order.id);
-  console.log(orderId);
+ 
   return orders[0] === undefined || orders[0].products.length === 0 ? (
     <div>
       <img src="https://st2.depositphotos.com/1010305/9903/i/600/depositphotos_99030142-stock-photo-dog-with-shopping-cart.jpg"></img>
