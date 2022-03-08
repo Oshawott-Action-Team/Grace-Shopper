@@ -1,10 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
-import {  updateProduct } from '../store/cart';
-import { addOrderItem } from '../store/orderItem';
-
+import { useSelector, useDispatch } from "react-redux";
+import { updateProduct } from "../store/cart";
+import { addOrderItem } from "../store/orderItem";
 
 export const useCart = () => {
-  const newOrder = useSelector((state) => state.orders.newOrder);
+  const newOrder = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const isProductExists = (id) => {
