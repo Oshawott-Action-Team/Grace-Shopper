@@ -1,8 +1,8 @@
-import Axios from 'axios';
+import Axios from "axios";
 
-const GET_ORDERS = 'GET_ORDERS';
+const GET_ORDERS = "GET_ORDERS";
 
-const COMPLETE_ORDER = 'COMPLETE_ORDER';
+export const COMPLETE_ORDER = "COMPLETE_ORDER";
 
 export const getOrders = (orders) => {
   return {
@@ -21,10 +21,10 @@ export const completeOrder = (order) => {
 export const fetchOrders = () => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
+      const token = window.localStorage.getItem("token");
 
       if (token) {
-        const { data } = await Axios.get('/api/orders/complete', {
+        const { data } = await Axios.get("/api/orders/complete", {
           headers: {
             authorization: token,
           },
@@ -40,7 +40,7 @@ export const fetchOrders = () => {
 export const completeNewOrder = (orderId, history) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem('token');
+      const token = window.localStorage.getItem("token");
       if (token) {
         const { data } = await Axios.put(`/api/orders/orderItem`, orderId, {
           headers: {
@@ -49,7 +49,7 @@ export const completeNewOrder = (orderId, history) => {
         });
         dispatch(completeOrder(data));
 
-        history.push('/orders');
+        history.push("/orders");
       }
     } catch (err) {
       console.log(err);

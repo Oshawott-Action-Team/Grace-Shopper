@@ -3,23 +3,16 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
 import { fetchNewOrder } from "../store/cart";
+import { useCart } from "../hooks/useCart";
 
 const Navbar = ({ handleClick, isLoggedIn, username }) => {
-  const newOrder = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchNewOrder());
   }, []);
 
-  let cartQuantity = 0;
-  if (newOrder[0] === undefined) {
-    return cartQuantity;
-  } else {
-    cartQuantity = newOrder[0].products.reduce(
-      (acc, product) => (acc += product.orderItem.quantity),
-      0
-    );
-  }
+  const { getCartQuantity } = useCart();
 
   return (
     <div>
@@ -37,7 +30,7 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => {
                 src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
                 style={{ height: 60 }}
               />
-              Cart ({cartQuantity})
+              Cart ({getCartQuantity()})
             </Link>
 
             <a href="#" onClick={handleClick}>

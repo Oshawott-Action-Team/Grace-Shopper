@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { completeNewOrder } from '../store/orders';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { completeNewOrder } from "../store/orders";
 import {
   fetchNewOrder,
   updateProduct,
   fetchDeleteOrderItem,
-} from '../store/cart';
+} from "../store/cart";
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState('1');
+  const [quantity, setQuantity] = useState("1");
   const orders = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -33,6 +33,7 @@ const Cart = () => {
 
   const complete = (id) => {
     dispatch(completeNewOrder({ id: id }, history));
+    
   };
 
   const deleteProduct = (id) => {
@@ -40,7 +41,7 @@ const Cart = () => {
   };
 
   const orderId = orders.map((order) => order.id);
- 
+
   return orders[0] === undefined || orders[0].products.length === 0 ? (
     <div>
       <img src="https://st2.depositphotos.com/1010305/9903/i/600/depositphotos_99030142-stock-photo-dog-with-shopping-cart.jpg"></img>
@@ -99,7 +100,11 @@ const Cart = () => {
         );
       })}
 
-      <button onClick={(id) => complete(orderId[0])}>
+      <button
+        onClick={() => {
+          complete(orderId[0]);
+        }}
+      >
         Proceed To Checkout
       </button>
     </div>
