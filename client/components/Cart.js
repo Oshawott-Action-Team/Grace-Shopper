@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { completeNewOrder } from "../store/orders";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { completeNewOrder } from '../store/orders';
 import {
   fetchNewOrder,
   updateProduct,
   fetchDeleteOrderItem,
-} from "../store/cart";
-import { useAuth } from "../hooks/useAuth";
-import { useCart } from "../hooks/useCart";
+} from '../store/cart';
+import { useAuth } from '../hooks/useAuth';
+import { useCart } from '../hooks/useCart';
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState("1");
+  const [quantity, setQuantity] = useState('1');
   const orders = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const { isLoggedIn } = useAuth();
@@ -58,44 +58,50 @@ const Cart = () => {
               {order.products.map((product) => {
                 return (
                   <div className="singleProductDisplay" key={product.id}>
-                    <h2>{product.name}</h2>
-                    <img src={product.imageUrl} />
-                    <p>Quantity:{product.orderItem.quantity}</p>
-                    <p>
-                      <select
-                        onInput={(evt) => setQuantity(evt.target.value)}
-                        onChange={() =>
-                          onChangeQuantity(
-                            order.id,
-                            product.id,
-                            quantity,
-                            product.price
-                          )
-                        }
-                      >
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                      </select>
-                    </p>
+                    <div>
+                      <h2>{product.name}</h2>
+                      <img src={product.imageUrl} />
+                    </div>
+                    <div className="priceDisplay">
+                      <p>Quantity:{product.orderItem.quantity}</p>
+                      <p>
+                        <select
+                          onInput={(evt) => setQuantity(evt.target.value)}
+                          onChange={() =>
+                            onChangeQuantity(
+                              order.id,
+                              product.id,
+                              quantity,
+                              product.price
+                            )
+                          }
+                        >
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                          <option>11</option>
+                          <option>12</option>
+                        </select>
+                      </p>
 
-                    <p>Price:${product.price}</p>
-                    <p>
-                      Total: $
-                      {(product.orderItem.quantity * product.price).toFixed(2)}
-                    </p>
-                    <button onClick={() => deleteProduct(product.id)}>
-                      Delete
-                    </button>
+                      <p>Price:${product.price}</p>
+                      <p>
+                        Total: $
+                        {(product.orderItem.quantity * product.price).toFixed(
+                          2
+                        )}
+                      </p>
+                      <button onClick={() => deleteProduct(product.id)}>
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 );
               })}
@@ -125,13 +131,17 @@ const Cart = () => {
           {guestItem.map((product) => {
             return (
               <div className="singleProductDisplay" key={product.id}>
-                <h2>{product.productName}</h2>
-                <img src={product.imageUrl} />
-                <p>Quantity:{product.quantity}</p>
-                <p>Price:${product.salesPrice}</p>
-                <p>
-                  Total: ${(product.quantity * product.salesPrice).toFixed(2)}
-                </p>
+                <div>
+                  <h2>{product.productName}</h2>
+                  <img src={product.imageUrl} />
+                </div>
+                <div className="priceDisplay">
+                  <p>Quantity:{product.quantity}</p>
+                  <p>Price:${product.salesPrice}</p>
+                  <p>
+                    Total: ${(product.quantity * product.salesPrice).toFixed(2)}
+                  </p>
+                </div>
               </div>
             );
           })}

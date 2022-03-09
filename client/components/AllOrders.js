@@ -19,8 +19,7 @@ export class AllOrders extends React.Component {
         {orders.map((order) => {
           return (
             <div key={order.id}>
-              <h2>{order.id}</h2>
-              <h2>{order.orderStatus}</h2>
+              <h2>Order #{order.id} has been successfully placed!</h2>
             </div>
           );
         })}

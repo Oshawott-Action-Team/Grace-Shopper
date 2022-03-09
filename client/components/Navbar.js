@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "../store";
-import { fetchNewOrder } from "../store/cart";
-import { useCart } from "../hooks/useCart";
+import React, { useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
+import { fetchNewOrder } from '../store/cart';
+import { useCart } from '../hooks/useCart';
 
 const Navbar = ({ handleClick, isLoggedIn, username }) => {
   const dispatch = useDispatch();
@@ -40,8 +40,8 @@ const Navbar = ({ handleClick, isLoggedIn, username }) => {
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
+            <Link to="/home">Home</Link>
             <Link to="/products">All Products</Link>
-            <Link to="/orders">My Orders</Link>
             <Link to="/newOrder">
               <img
                 src="https://i.pinimg.com/originals/84/66/7e/84667ecd09e219d30420530aaee5c7ba.jpg"
