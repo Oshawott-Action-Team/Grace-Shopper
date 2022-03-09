@@ -8,11 +8,16 @@ import {
   updateProduct,
   fetchDeleteOrderItem,
 } from "../store/cart";
+import { useAuth } from "../hooks/useAuth";
+import { useCart } from "../hooks/useCart";
 
 const Cart = () => {
   const [quantity, setQuantity] = useState("1");
   const orders = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const { isLoggedIn } = useAuth();
+  const { guestItem } = useCart();
+  console.log(guestItem);
 
   const history = useHistory();
 
@@ -33,7 +38,6 @@ const Cart = () => {
 
   const complete = (id) => {
     dispatch(completeNewOrder({ id: id }, history));
-    
   };
 
   const deleteProduct = (id) => {
@@ -42,73 +46,103 @@ const Cart = () => {
 
   const orderId = orders.map((order) => order.id);
 
-  return orders[0] === undefined || orders[0].products.length === 0 ? (
-    <div>
-      <img src="https://st2.depositphotos.com/1010305/9903/i/600/depositphotos_99030142-stock-photo-dog-with-shopping-cart.jpg"></img>
-    </div>
-  ) : (
-    <div>
-      {orders.map((order) => {
-        return (
-          <div key={order.id}>
-            {order.products.map((product) => {
-              return (
-                <div className="card" key={product.id}>
-                  <h2>{product.name}</h2>
-                  <img src={product.imageUrl} />
+  if (isLoggedIn) {
+    return orders[0] === undefined || orders[0].products.length === 0 ? (
+      <div>
+        <img src="https://st2.depositphotos.com/1010305/9903/i/600/depositphotos_99030142-stock-photo-dog-with-shopping-cart.jpg"></img>
+      </div>
+    ) : (
+      <div>
+        {orders.map((order) => {
+          return (
+            <div key={order.id}>
+              {order.products.map((product) => {
+                return (
+                  <div className="card" key={product.id}>
+                    <h2>{product.name}</h2>
+                    <img src={product.imageUrl} />
 
-                  <p>Quantity:{product.orderItem.quantity}</p>
-                  <p>
-                    <select
-                      onInput={(evt) => setQuantity(evt.target.value)}
-                      onChange={() =>
-                        onChangeQuantity(
-                          order.id,
-                          product.id,
-                          quantity,
-                          product.price
-                        )
-                      }
-                    >
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                      <option>11</option>
-                      <option>12</option>
-                    </select>
-                  </p>
+                    <p>Quantity:{product.orderItem.quantity}</p>
+                    <p>
+                      <select
+                        onInput={(evt) => setQuantity(evt.target.value)}
+                        onChange={() =>
+                          onChangeQuantity(
+                            order.id,
+                            product.id,
+                            quantity,
+                            product.price
+                          )
+                        }
+                      >
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                      </select>
+                    </p>
 
-                  <p>Price:${product.price}</p>
-                  <p>
-                    Total: $
-                    {(product.orderItem.quantity * product.price).toFixed(2)}
-                  </p>
-                  <button onClick={() => deleteProduct(product.id)}>
-                    Delete
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
+                    <p>Price:${product.price}</p>
+                    <p>
+                      Total: $
+                      {(product.orderItem.quantity * product.price).toFixed(2)}
+                    </p>
+                    <button onClick={() => deleteProduct(product.id)}>
+                      Delete
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
 
-      <button
-        onClick={() => {
-          complete(orderId[0]);
-        }}
-      >
-        Proceed To Checkout
-      </button>
-    </div>
-  );
+        <button
+          onClick={() => {
+            complete(orderId[0]);
+          }}
+        >
+          Proceed To Checkout
+        </button>
+      </div>
+    );
+  } else {
+    // if(guestItem)
+    if (guestItem[0] === undefined) {
+      return (
+        <div>
+          <img src="https://st2.depositphotos.com/1010305/9903/i/600/depositphotos_99030142-stock-photo-dog-with-shopping-cart.jpg"></img>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {guestItem.map((product) => {
+            return (
+              <div>
+                <h2>{product.productName}</h2>
+                <img src={product.imageUrl} />
+
+                <p>Quantity:{product.quantity}</p>
+                <p>Price:${product.salesPrice}</p>
+                <p>
+                  Total: ${(product.quantity * product.salesPrice).toFixed(2)}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+  }
 };
 
 export default Cart;
