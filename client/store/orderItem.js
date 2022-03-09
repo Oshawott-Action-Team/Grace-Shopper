@@ -21,7 +21,6 @@ export const addOrderItem = (product) => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem("token");
-      //console.log(token);
       if (token) {
         const { data } = await Axios.put("/api/orders", product, {
           headers: {
@@ -30,12 +29,6 @@ export const addOrderItem = (product) => {
         });
         dispatch(addProducts(data));
       }
-      // else {
-      //   window.localStorage.setItem(
-      //     "HELLO",
-      //     JSON.stringify(["VINH ", "sfsdfdsg"])
-      //   );
-      // }
     } catch (err) {
       console.log(err);
     }
