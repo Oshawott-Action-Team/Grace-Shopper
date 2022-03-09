@@ -1,10 +1,26 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateProduct } from "../store/cart";
-import { addOrderItem } from "../store/orderItem";
+import { fetchNewOrder, updateProduct } from "../store/cart";
+import {
+  addGuestOrderItem,
+  addOrderItem,
+  fetchGuestCartItem,
+} from "../store/orderItem";
+import { useAuth } from "./useAuth";
 
 export const useCart = () => {
   const newOrder = useSelector((state) => state.cart);
+  const guestItem = useSelector((state) => state.guest);
+  const { isLoggedIn } = useAuth();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchNewOrder());
+    } else {
+      dispatch(fetchGuestCartItem());
+    }
+  }, [isLoggedIn]);
 
   const isProductExists = (id) => {
     let isExisted = false;
@@ -53,6 +69,11 @@ export const useCart = () => {
     }
   };
 
+  const addToGuestCart = (id, productName, imageUrl, quantity, salesPrice) => {
+    guestItem.push({ id, productName, imageUrl, quantity, salesPrice });
+    dispatch(addGuestOrderItem(guestItem));
+  };
+
   const getCartQuantity = () => {
     let cartQuantity = 0;
     if (newOrder[0] === undefined) {
@@ -68,6 +89,8 @@ export const useCart = () => {
   return {
     getCartQuantity,
     cart: newOrder,
+    guestItem,
     addToCart,
+    addToGuestCart,
   };
 };

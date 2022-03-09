@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { fetchSingleProduct } from "../store/singleProduct";
 import { useCart } from "../hooks/useCart";
 import { fetchNewOrder } from "../store/cart";
+import { useAuth } from "../hooks/useAuth";
 
 const SingleProduct = () => {
   const [quantity, setQuantity] = useState("1");
@@ -11,6 +12,8 @@ const SingleProduct = () => {
   const { addToCart } = useCart();
   const dispatch = useDispatch();
   const { productId } = useParams();
+  const { isLoggedIn } = useAuth();
+  const { addToGuestCart } = useCart();
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
@@ -37,9 +40,20 @@ const SingleProduct = () => {
       </div>
       <button
         onClick={() => {
-          addToCart(productId, quantity, product.price);
-          alert(`${quantity} ${product.name} costume(s) added to your cart`);
-          dispatch(fetchNewOrder());
+          if (isLoggedIn) {
+            addToCart(productId, quantity, product.price);
+            alert(`${quantity} ${product.name} costume(s) added to your cart`);
+            dispatch(fetchNewOrder());
+          } else {
+            addToGuestCart(
+              productId,
+              product.name,
+              product.imageUrl,
+              quantity,
+              product.price
+            );
+            alert(`${quantity} ${product.name} costume(s) added to your cart`);
+          }
         }}
       >
         Add To Cart
