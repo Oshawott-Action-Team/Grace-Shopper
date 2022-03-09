@@ -21,7 +21,7 @@ const SingleProduct = () => {
   }, []);
 
   return (
-    <div className="card">
+    <div className="singleProductDisplay">
       <div>
         <h2>{product.name}</h2>
         <img src={product.imageUrl} />

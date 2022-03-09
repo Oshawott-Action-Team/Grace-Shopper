@@ -57,10 +57,9 @@ const Cart = () => {
             <div key={order.id}>
               {order.products.map((product) => {
                 return (
-                  <div className="card" key={product.id}>
+                  <div className="singleProductDisplay" key={product.id}>
                     <h2>{product.name}</h2>
                     <img src={product.imageUrl} />
-
                     <p>Quantity:{product.orderItem.quantity}</p>
                     <p>
                       <select
@@ -125,10 +124,9 @@ const Cart = () => {
         <div>
           {guestItem.map((product) => {
             return (
-              <div>
+              <div className="singleProductDisplay" key={product.id}>
                 <h2>{product.productName}</h2>
                 <img src={product.imageUrl} />
-
                 <p>Quantity:{product.quantity}</p>
                 <p>Price:${product.salesPrice}</p>
                 <p>

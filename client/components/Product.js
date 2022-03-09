@@ -6,12 +6,12 @@ const Product = (props) => {
 
   return (
     <div>
-      <ul className="container">
+      <ul className="productsDisplay">
         {products.map((product) => {
           return (
             <div className="card" key={product.id}>
               <h2>{product.name}</h2>
-              <img src={product.imageUrl} />
+              <img className="costumeImage" src={product.imageUrl} />
               <p>${product.price}</p>
               <Link to={`/products/${product.id}`}>
                 <button>See More</button>

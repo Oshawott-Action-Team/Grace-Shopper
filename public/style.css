@@ -1,3 +1,11 @@
+* {
+  font-family: FuturaPT-Book, futura-pt, Futura, Arial;
+  text-align: center;
+  background-color: #c8f6f9;
+  border-radius: 10px;
+  text-shadow: 1px 1px 3px black;
+}
+
 body {
   font-family: sans-serif;
 }
@@ -18,4 +26,49 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.costumeImage {
+  width: 300px;
+  height: 320px;
+  /* object-fit: scale-down; */
+}
+
+.welcomeBanner {
+  text-align: center;
+  border-radius: 10px;
+  background-color: #5889c6;
+  color: pink;
+  text-shadow: 2px 2px black;
+  font-family: FuturaPT-Book, futura-pt, Futura, Arial;
+  font-size: 70px;
+}
+
+.partyFont {
+  font-size: 30px;
+  color: goldenrod;
+}
+
+.homePage {
+  background-image: url("https://c8.alamy.com/comp/2BM7AHH/rainbow-colors-colorful-paw-print-background-2BM7AHH.jpg");
+  border-radius: 30px;
+}
+
+.productsDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.singleProductDisplay {
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-left: 40px;
+}
+
+.card {
+  flex: 0 0 33;
+  width: 30%;
 }
