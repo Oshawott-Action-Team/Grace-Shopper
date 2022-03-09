@@ -33,7 +33,6 @@ const Cart = () => {
 
   const complete = (id) => {
     dispatch(completeNewOrder({ id: id }, history));
-    
   };
 
   const deleteProduct = (id) => {
@@ -53,7 +52,7 @@ const Cart = () => {
           <div key={order.id}>
             {order.products.map((product) => {
               return (
-                <div className="card" key={product.id}>
+                <div className="singleProductDisplay" key={product.id}>
                   <h2>{product.name}</h2>
                   <img src={product.imageUrl} />
 
