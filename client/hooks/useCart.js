@@ -70,7 +70,6 @@ export const useCart = () => {
   };
 
   const addToGuestCart = (id, productName, imageUrl, quantity, salesPrice) => {
-    console.log(guestItem);
     guestItem.push({ id, productName, imageUrl, quantity, salesPrice });
     dispatch(addGuestOrderItem(guestItem));
   };
