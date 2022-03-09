@@ -17,7 +17,6 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useAuth();
   const { guestItem } = useCart();
-  console.log(guestItem);
 
   const history = useHistory();
 
@@ -115,7 +114,6 @@ const Cart = () => {
       </div>
     );
   } else {
-    // if(guestItem)
     if (guestItem[0] === undefined) {
       return (
         <div>
